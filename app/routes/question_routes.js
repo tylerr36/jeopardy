@@ -19,7 +19,7 @@ const router = express.Router()
 // })
 
 // user specific index
-router.get('/user_questions', requireToken, (req, res, next) => {
+router.get('/questions', requireToken, (req, res, next) => {
   let search = { owner: req.user.id }
   Question.find(search)
     .then(questions => {
