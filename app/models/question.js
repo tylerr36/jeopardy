@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const questionSchema = new mongoose.Schema({
-  question_text: {
+  question: {
     type: String,
     required: true
   },
@@ -10,8 +10,7 @@ const questionSchema = new mongoose.Schema({
     required: true
   },
   points: {
-    type: String,
-    required: true
+    type: String
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

@@ -65,7 +65,7 @@ router.patch('/questions/:id', requireToken, removeBlanks, (req, res, next) => {
 // delete a question
 router.delete('/questions/:id', requireToken, (req, res, next) => {
   Question.findById(req.params.id)
-    .populate('question')
+    // .populate('question')
     .then(handle404)
     .then(question => {
       requireOwnership(req, question)
