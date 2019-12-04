@@ -11,8 +11,7 @@ curl "${API}${URL_PATH}/${ID}" \
   --data '{
     "question": {
       "question_text": "'"${QUESTION}"'",
-      "answer": "'"${ANSWER}"'",
-      "points": "'"${POINTS}"'"
+      "answer": "'"${ANSWER}"'"
     }
   }'
 

@@ -49,16 +49,40 @@ router.post('/questions', requireToken, (req, res, next) => {
 })
 
 // update a question
+// router.patch('/questions/:id', requireToken, removeBlanks, (req, res, next) => {
+//   delete req.body.question.owner
+//   Question.findById(req.params.id)
+//     .populate('question')
+//     .then(handle404)
+//     .then(question => {
+//       requireOwnership(req, question)
+//       return question.updateOne(req.body.question)
+//     })
+//     .then(() => res.sendStatus(204))
+//     .catch(next)
+// })
+
+// UPDATE
+// PATCH /examples/5a7db6c74d55bc51bdf39793
 router.patch('/questions/:id', requireToken, removeBlanks, (req, res, next) => {
-  delete req.body.question.owner
+  console.log(req.body)
+  // if the client attempts to change the `owner` property by including a new
+  // owner, prevent that by deleting that key/value pair
+  delete req.body.questionEdit.owner
+
   Question.findById(req.params.id)
-    .populate('question')
     .then(handle404)
     .then(question => {
+      // pass the `req` object and the Mongoose record to `requireOwnership`
+      // it will throw an error if the current user isn't the owner
       requireOwnership(req, question)
-      return question.updateOne(req.body.question)
+
+      // pass the result of Mongoose's `.update` to the next `.then`
+      return question.updateOne(req.body.questionEdit)
     })
+    // if that succeeded, return 204 and no JSON
     .then(() => res.sendStatus(204))
+    // if an error occurs, pass it to the handler
     .catch(next)
 })
 
