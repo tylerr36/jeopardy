@@ -20,8 +20,8 @@ const router = express.Router()
 
 // user specific index
 router.get('/questions', requireToken, (req, res, next) => {
-  let search = { owner: req.user.id }
-  Question.find(search)
+  // let search = { owner: req.user.id }
+  Question.find()
     .then(questions => {
       return questions.map(question => question.toObject())
     })
